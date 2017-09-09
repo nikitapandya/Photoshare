@@ -1,10 +1,12 @@
+<!-- author ben lawson (balawson@bu.edu) -->
 <!doctype html>
-<title> Unauthorized</title>
+
+<title>Photoshare</title>
 
 <style> 
 
     body { font-family: 'Futura', cursive; background: #AA5239 ; }
-    
+
     header {
         background-color: #FEED76;
         background-size: 300px 100px, css,;
@@ -25,29 +27,41 @@
         background-color: #FEED76;
      }
 
-     footer {
+    footer {
         width: 100%;
         height: 50px;
         line-height: 50px;
         text-align: center;
         background-color: #4b4c4e;
         color: white;
-        margin-top: 35em;
-        margin-bottom: 0px;
+        margin-top: 38.5em;
+        margin-bottom: 0.5px;
     }
 
-    h1{
-    	color:white;
-    }
-
-     </style> 
+</style> <body>
 
 <header> <div id="nav">
 	<a href='/'>Home</a>
-	<a href='/upload'>Upload a photo</a>
+	<a href='/add_friends'>Add Friends</a>
 </div> </header> 
-<center>
-<h1> Yikes, looks like you need to <a href='/login'>login</a></h1>
-<h1> or <a href='/register'>make an account</a></h1> </center> 
+
+{% if message %}
+<h2> {{message}} </h2>
+{% endif %}
+
+{% if friends %}
+<h2>Here are your friends:</h2>
+    <ul>
+    {% for f in friends %}
+        <li> {{f[0]}}, {{f[1]}}: {{f[2]}}  </li>
+    {% endfor %}
+    </ul>
+{% else %}
+<center><h2>You don't have friends yet!!</h2></center> 
+
+{% endif %}
 
 <footer>&copy: 2016 Photoshare </footer>
+
+</body>
+

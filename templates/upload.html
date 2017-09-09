@@ -1,4 +1,71 @@
 <!-- author ben lawson (balawson@bu.edu) -->
+
+<style>
+
+body { font-family: 'Futura', cursive; background: #AA5239 ; }
+ 
+
+    .button {
+    background-color: #FEED76; border: none;
+    color: black; padding: 10px 22px;
+    text-align: center; display: inline-block;
+    font-size: 12px; margin: 4px 2px;
+    cursor: pointer; border-radius: 8px;
+    }
+
+    form {
+    display: inline-block; 
+    }
+
+    header {
+        background-color: #FEED76;
+        background-size: 300px 100px, css,;
+        background-position: left top, right top;
+        background-repeat: no-repeat, no-repeat;
+        width: 100%;
+        height: 60px;
+        background-size: contain;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    #nav {
+        margin: 0 auto;
+        width: 100%;
+        height: 50px;
+        line-height: 45px;
+        background-color: #FEED76;
+     }
+
+    footer {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #4b4c4e;
+        color: white;
+        margin-top: 8em;
+        margin-bottom: 0.5px;
+    }
+
+
+    .divider {
+      width: 100%;
+      height: 4px;
+      background-color: #4b4c4e;
+      margin-top: 3em;
+      margin-bottom: 3em;
+    }
+
+
+</style>
+
+<header> <div id="nav">
+    <a href='/'>Home</a>
+    <a href='/albums'>List Albums</a>
+</div> </header> 
+
+<center>
 <head>
     <title>Upload a photo!</title>
 </head>
@@ -6,11 +73,14 @@
         <div class="title">
             <h1>Upload a photo to Photoshare</h1>
         </div>
-            <form method="post" action="{{ url_for('upload_photo') }}">
+            <form method="post" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
                 <label for="photo">Select photo:</label>
                 <input type="file" name="photo" required='true' /><br />
                 <label for="caption">Please caption:</label>
                 <input type="text" name="caption" required='true' /><br />
+                <label for="tags">Tags, seperated by commas:</label>
+                <input type="tags" name="tags" required='true' /><br />
                 <input type="submit" value="Upload" />
             </form>
     </body>
+</center>

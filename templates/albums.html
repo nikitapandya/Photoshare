@@ -1,0 +1,134 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<!doctype html>
+
+{% if message %}
+  <h4>{{message}}!</h4>
+{% endif %}
+<title>Photoshare</title>
+
+
+<style> 
+
+    body { font-family: 'Futura', cursive; background: #AA5239 ; }
+
+    header {
+        background-color: #FEED76;
+        background-size: 300px 100px, css,;
+        background-position: left top, right top;
+        background-repeat: no-repeat, no-repeat;
+        width: 100%;
+        height: 60px;
+        background-size: contain;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+       #nav {
+        margin: 0 auto;
+        width: 100%;
+        height: 50px;
+        line-height: 45px;
+        background-color: #FEED76;
+     }
+
+     
+
+
+     h2 {
+        color: black;
+        font-size: 35px;
+        margin-top: .5em;
+        margin-bottom: 0.01em;
+        text-align: center; 
+    }
+
+    h4 {
+        color: white;
+    }
+
+    ul.b {
+        list-style-type: square;
+    }
+
+    #container{
+        width:45%;
+        padding:1em;
+        margin:0 auto;
+    }​
+
+    button.link {
+    background-color: #FFD700;
+    border: none;
+    color: white;
+    padding: 10px 22px;
+    cursor: pointer;
+    font-size: 10px;
+    margin: 4px 2px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+    footer {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #4b4c4e;
+        color: white;
+        margin-top: 21em;
+        margin-bottom: 0.5px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 4px;
+      background-color: #4b4c4e;
+      margin-top: 3em;
+      margin-bottom: 3em;
+    }
+
+</style>  <body>
+
+<header> <div id="nav">
+    <a href='/'>Home</a>
+    <a href='/upload'>Upload Photos</a>
+</div> </header>
+
+
+{% if albums %}
+<h2>Here are your albums</h2>
+<div id="container">
+    <ul class="b">
+    {% for f in albums %}
+<li>
+        <form method="post" action="{{ url_for('view_album') }}">
+        {{f[0]}} <button name="ids" class="link" type="submit" value={{f[1]}},>View</button>
+        </form> 
+       <form method="post" action="{{ url_for('delete_album') }}">
+        <button name="ids" class="link" type="submit" value={{f[1]}},>Delete</button>
+        </form> <br> 
+</li>
+    {% endfor %}
+    </ul> </div> 
+
+{% else %}
+<h2>You don't have any albums yet!</h2>
+{% endif %}
+
+<div class = "divider"></div> 
+
+{% if albums2 %}
+<h2>Here are all other albums</h2>
+<div id="container">
+    <ul class="b">
+    {% for f in albums2 %}
+        <form method="post" action="{{ url_for('view_album') }}">
+        <li> {{f[0]}} <button name="ids" class="link" type="submit" value={{f[1]}},>View</button></li>
+        </form>
+    {% endfor %}
+    </ul> </div>
+{% endif %}
+
+<footer>&copy: 2016 Photoshare </footer>
+ </body> 
+

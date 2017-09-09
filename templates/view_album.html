@@ -1,0 +1,135 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<!doctype html>
+
+<title>Photoshare</title>
+
+
+<style> 
+        
+    body { font-family: 'Futura', cursive; background: #AA5239 ; }
+        
+    header {
+        background-color: #FEED76;
+        background-size: 300px 100px, css,;
+        background-position: left top, right top;
+        background-repeat: no-repeat, no-repeat;
+        width: 100%;
+        height: 60px;
+        background-size: contain;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    #nav {
+        margin: 0 auto;
+        width: 100%;
+        height: 50px;
+        line-height: 45px;
+        background-color: #FEED76;
+     }
+      
+     .button {
+    background-color: #FEED76; border: none;
+    color: black; padding: 10px 22px;
+    text-align: center; display: inline-block;
+    font-size: 12px; margin: 4px 2px;
+    cursor: pointer; border-radius: 8px;
+    }
+      
+    .button2 {
+    background-color: #4b4c4e; border: none;
+    color: white; padding: 10px 32px;
+    text-align: center; display: inline-block;
+    font-size: 12px; margin: 4px 2px; cursor: pointer; 
+    border-radius: 8px;
+    }  
+
+    .button3 {
+    background-color: #AA5239; border: none;
+    color: white; padding: 10px 32px;
+    text-align: center; display: inline-block;
+    font-size: 12px; margin: 4px 2px; cursor: pointer; 
+    border-radius: 8px;
+    }  
+
+
+    form {
+    display: inline-block; 
+}
+    footer {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #4b4c4e;
+        color: white;
+        margin-top: 15em;
+        margin-bottom: 0.5px;
+    }
+
+</style>
+
+<header> <div id="nav">
+    <a href='/'>Home</a>
+    <a href='/albums'>List Albums</a>
+    <a href='/upload'>Upload a Photo</a>
+</div> </header> 
+
+<center> 
+
+{% if photos %}
+<h2>{{message}}</h2>
+    <ul>
+    {% for p in photos %}
+         <img src='data:image/png;base64, {{p[0][0]}}', style="width:50%;height:50%;"> <br> 
+             Caption: {{p[0][2]}} <br>
+             <form method="post" action="{{ url_for('add_comments') }}">
+                <input name="comment_text" type="comment_text" required='true' />
+                <button name="ids" class="button" type="submit" value={{p[5]}},{{p[0][1]}}>Comment</button> <br>
+             </form> 
+            
+             <form method="post" action="{{ url_for('add_likes') }}">
+                <button name="ids" class="button" type="submit" value={{p[5]}},{{p[0][1]}}>Like</button> <br>
+             </form> <br>
+
+            {{p[2]}} likes: {{p[3]}} <br>
+             {% for comments in p[1] %}
+                {{comments}} <br>
+             {% endfor %}
+
+             {% for t in p[4] %}
+                 <form method="post" action="{{ url_for('tagged_photos') }}">
+                     <button name="tag_word" class="button" type="submit" value={{t[0]}}>#{{t[0]}}</button>
+                 </form>
+             {% endfor %}
+             <br>
+             {% if p[6] %}
+                 Suggested tags: {{p[6]}}
+             <br>
+             <form method="post" action="{{ url_for('add_tags') }}">
+                <input name="tags" type="tags" required='true' />
+                <button name="ids" class="button2" type="submit" value={{p[5]}},{{p[0][1]}}>Add tags</button> <br>
+             </form> <br>
+             {% endif %}
+                 <form method="post" action="{{ url_for('delete_photo') }}">
+                    <button name="ids" class="button2" type="submit" value={{p[5]}},{{p[0][1]}}>Delete</button>
+                 </form>
+          <br>
+    {% endfor %}
+    </ul>
+
+{% elif tagged %}
+<h2>Here are photos with the tag '{{tag}}'</h2>
+    <ul>
+    {% for t in tagged %}
+        <form method="post" action="{{ url_for('get_album_of') }}">
+            <button class="button3"name="picture_id" type="submit" value={{t[1]}}><img src='data:image/png;base64, {{t[0]}}', style="width:50%;height:50%;"></button>
+        </form>
+    {% endfor %}
+
+{% else %}
+<h2> {{message}} </h2>
+{% endif %}
+ </center> 
+ <footer>&copy: 2016 Photoshare </footer>
+</body> 

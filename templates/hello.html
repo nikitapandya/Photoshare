@@ -1,31 +1,159 @@
 <!-- author ben lawson (balawson@bu.edu) -->
 <!doctype html>
-{% if message %}
-  <h4>{{message}}!</h4>
+{% if message2 %}
+  <h2>{{message2}}!</h2>
 {% endif %}
 <title>Photoshare</title>
-{% if name %}
-  <h1>Hello {{ name }}!</h1>
+
+
+<style> 
+
+    body { font-family: 'Futura', cursive; background: #AA5239 ; }
+
+    header {
+        background-color: #FEED76;
+        background-size: 300px 100px, css,;
+        width: 100%;
+        height: 60px;
+        background-size: contain;
+        margin: 0 auto;
+        text-align: center; }
+    
+       #nav {
+        margin: 0 auto;
+        width: 100%;
+        height: 50px;
+        line-height: 45px;
+        background-color: #FEED76;
+     }
+
+     .button {
+      background-color: #FEED76;
+      border: none;
+      color: black;
+      padding: 10px 22px;
+      text-align: center;
+      display: inline-block;
+      font-size: 12px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+      .button2 {
+      background-color: #AA5239;
+      border: none;
+      color: white;
+      padding: 10px 22px;
+      text-align: center;
+      display: inline-block;
+      font-size: 12px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    footer {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #4b4c4e;
+        color: white;
+        margin-top: 15em;
+        margin-bottom: 0.5px;
+    }
+
+    .divider {
+      width: 100%;
+      height: 4px;
+      background-color: #4b4c4e;
+      margin-top: 3em;
+      margin-bottom: 3em;
+    }
+
+</style> 
+
+<center> <header> <div id="nav">
+    <a href='/'>Home</a>
+    <a href='/profile'>Profile</a>
+    <a href='/albums'>List albums</a>
+    <a href='/upload'>Upload a photo</a>
+    <a href='/friends'>List Friends</a>
+    <a href='/logout'>Logout</a>
+</div> </header> </center> 
+
+<center><h1>Welcome to Photoshare!</h1></center>
+
+
+<!-- <h1>Hello {{ name }}!</h1> -->
+
+{% if info %}
+<h2>{{message}}</h2>
+    <ul>
+    {% for j in info[0] %}
+         {{j}} <br>
+    {% endfor %}
+    <br>
+    User's Contributions: <br>
+    Uploaded {{info[1]}} pictures <br>
+    Made {{info[2]}} comments 
+    </ul>
 {% endif %}
 
 {% if photos %}
 <h2>Here's your photos</h2>
     <ul>
     {% for photo in photos %}
-        <li><img src='data:image/png;base64, {{photo[0]}}'/></li>
+        <img src='data:image/png;base64, {{photo[0]}}' style="width:50%;height:50%;"/>
     {% endfor %}
     </ul>
 {% endif %}
 
-{% if message is none %}
-  <p>You should <a href='/login'>login!</a></p>
-{% else %}
-  <p> Go to <a href='/profile'>profile?</a></p>
+<center> <form method="post" action="{{ url_for('search_tags') }}">
+     <label for="tag_word">Find photos by tag:</label>
+     <input type="tag_word" name="tag_word" /><br />
+</form>
+
+<form method="post" action="{{ url_for('search_users') }}">
+     <label for="email">Find user by email:</label>
+     <input type="email" name="email" /><br />
+</form> </center> 
+
+<div class = "divider"></div> 
+
+<table style="width:170%"> <tr>
+<td>
+{% if tags %}
+<h3> Here are the top 5 tags </h3>
+     {% for t in tags %}
+         <form method="post" action="{{ url_for('tagged_photos') }}">
+            <button class="button" name="tag_word" type="submit" value={{t[2]}}>#{{t[2]}}</button>
+         </form>
+     {% endfor %}
 {% endif %}
+</td><td>
+{% if total %}
+<h3> Here are the top 10 contributors </h3>
+     {% for u in total %}
+          <li>  {{u[0]}} </li>
+     {% endfor %}
+{% endif %}
+</td>
+</tr> </table>
 
-<ul>
-<li><a href='/upload'>Upload a photo</a> </li> 
-<li><a href='/logout'>Logout</a></li>
-<li><a href='/'>Home</a></li>
-</ul>
+<div class = "divider"></div> 
 
+<center>
+{% if also_like %}
+<h2>You may also like:</h2>
+  {% for m in also_like %} 
+    {% for t in m %}
+        <form method="post" action="{{ url_for('get_album_of') }}">
+            <button class="button2" name="picture_id" type="submit" value={{t[0]}}><img src='data:image/png;base64, {{t[1]}}', style="width:40%;height:20%;"></button>
+        </form>
+    {% endfor %}
+  {% endfor %}
+{% endif %} </center> 
+
+<footer>&copy: 2016 Photoshare </footer>

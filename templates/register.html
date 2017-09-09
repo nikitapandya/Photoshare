@@ -2,10 +2,72 @@
 <head>
     <title>Create an account!</title>
 </head>
+
+<style> 
+
+    body { font-family: 'Futura', cursive; background: #AA5239 ; }
+    
+    header {
+        background-color: #FEED76;
+        background-size: 300px 100px, css,;
+        background-position: left top, right top;
+        background-repeat: no-repeat, no-repeat;
+        width: 100%;
+        height: 60px;
+        background-size: contain;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+       #nav {
+        margin: 0 auto;
+        width: 100%;
+        height: 50px;
+        line-height: 45px;
+        background-color: #FEED76;
+     }
+
+     .button {
+        background-color: #FEED76;
+        border: none;
+        color: black;
+        padding: 10px 22px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 15px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    footer {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        background-color: #4b4c4e;
+        color: white;
+        margin-top: 23em;
+        margin-bottom: 0.5px;
+    }
+
+    h1{
+        color:white;
+    }
+     </style> 
+
+
+
 {%if not supress%}
 <h1> Email already in use! Use another one or <a href="/login">login</a></h1>
 {% endif %}
     <body>
+
+<header> <div id="nav">
+<a href='/'>Home</a>
+</div> </header> 
+
         <div class="title">
             <h1>Enter your information below</h1>
         </div>
@@ -15,8 +77,19 @@
                 <input type="email" name="email" /><br />
                 <label for="password">Enter password:</label>
                 <input type="password" name="password" /><br />
-                <input type="submit" />
+                <label for="first_name">Enter first_name:</label>
+                <input type="first_name" name="first_name" /><br />
+                <label for="last_name">Enter last_name:</label>
+                <input type="last_name" name="last_name" /><br />
+                <label for="date_of_birth">Enter date_of_birth:</label>
+                <input type="date_of_birth" name="date_of_birth" /><br />
+                <label for="hometown">Enter hometown:</label>
+                <input type="hometown" name="hometown" /><br />
+                <label for="gender">Enter gender:</label>
+                <input type="gender" name="gender" /><br />
+                <input type="submit" class="button"/>
             </form>
          </div>
     </body>
-<a href='/'>Home</a>
+
+<footer>&copy: 2016 Photoshare </footer>
